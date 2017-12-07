@@ -1,0 +1,18 @@
+version: '3'
+services:
+  frontend:
+    image: nginx
+    volumes:
+      - ./frontend/site.conf:/etc/nginx/sites-enabled/site.conf
+      - ./proxy_params.conf:/etc/nginx/proxy_params.conf
+    ports:
+      - "8081:80"
+    links:
+      - backend:backend
+    restart: always
+
+  backend:
+    image: nginx
+    volumes:
+      - ./backend/site.conf:/etc/nginx/sites-enabled/site.conf
+      - ./html:/var/www/html
